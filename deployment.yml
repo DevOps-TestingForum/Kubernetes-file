@@ -17,9 +17,8 @@ spec:
         app: swiggy-app
     spec:
       containers:
-        - name: swiggy-app
-          image: nginx:1.25.3 # recreate dployment after chnaging the version
-          ports:
-            - name: http
-              containerPort: 8181
-          
+      - name: swiggy-app
+        image: 381492094793.dkr.ecr.us-east-1.amazonaws.com/swiggy:3
+        imagePullPolicy: "Always"
+        ports:
+        - containerPort: 3000
