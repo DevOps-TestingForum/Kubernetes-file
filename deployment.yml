@@ -1,11 +1,13 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: swiggy-app
-  labels:
-    app: swiggy-app
+  namespace: argocd
 spec:
-  replicas: 2
+  strategy:
+    type: Recreate
+  replicas: 4
   selector:
     matchLabels:
       app: swiggy-app
@@ -14,10 +16,10 @@ spec:
       labels:
         app: swiggy-app
     spec:
-      terminationGracePeriodSeconds: 30
       containers:
-      - name: swiggy-app
-        image: 987075663466.dkr.ecr.us-east-1.amazonaws.com/swiggy:latest
-        imagePullPolicy: "Always"
-        ports:
-        - containerPort: 3000
+        - name: swiggy-app
+          image: nginx:1.25.3 # recreate dployment after chnaging the version
+          ports:
+            - name: http
+              containerPort: 8181
+          
